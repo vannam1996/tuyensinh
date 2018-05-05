@@ -14,30 +14,21 @@
         </div>
         <h3 class="widget-content-light"></h3>
       </div>
-      <% if allow_change_in_time?(@note) && !current_user.is_changed_register? %>
+      <% if allow_change_in_time?(@note) %>
         <div id="change-aspiration">
           <div class="row">
-            <%= render @registers %>
+            <%= render "registers" %>
           </div>
           <div class="row">
-            <div class="col-md-2 col-md-offset-5">
-              <%= link_to t("suggestions"), "javascript:void(0)", class: "btn btn-primary btn-md col-md-12 m-b-20", id: "btn-change-aspiration" %>
+            <div class="col-md-5 col-md-offset-4">
+              <%= link_to t("new_register"), "",
+                data: {target: "#modal-new-register", toggle: :modal},
+                class: "btn btn-primary" %>
+              <%= link_to t("edit_register"), edit_register_path(id: 1), remote: true,
+                class: "btn btn-primary" %>
             </div>
           </div>
         </div>
-
-        <div id="suggestions" class="display-none"></div>
-
-      <% elsif current_user.is_changed_register? %>
-        <div class="row">
-          <div class="col-md-12">
-            <p class="text-center text-danger">
-              <i class="fa fa-times"></i>
-              <strong><%= t "one_changed_register" %></strong>
-            </p>
-          </div>
-        </div>
-
       <% else %>
         <div class="row">
           <div class="col-md-12">
@@ -52,5 +43,10 @@
   </div>
 </div>
 <div class="modal fade" id="favorite-majors" role="dialog" tabindex="-1" aria-hidden="true"></div>
-<%= hidden_field_tag :major_registed_ids, get_major_registed_id(@registers) %>
-<%= javascript_include_tag "change_aspiration" %>
+<div id="modal-new-register" class="modal fade" role="dialog">
+  <%= render "new_register" %>
+</div>
+<div id="modal-edit-aspiration" class="modal fade" role="dialog">
+
+</div>
+<%= javascript_include_tag "register_new" %>

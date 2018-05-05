@@ -1,0 +1,26 @@
+<div class="col-md-12">
+  <div class="block">
+    <div class="block-title ui-sortable-handle themed-background-fire color-white">
+      <h2></h2>
+    </div>
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th><%= t "table_register.aspiration" %></th>
+              <th><%= t "table_register.major" %></th>
+              <th><%= t "table_register.school" %></th>
+              <th><%= t "table_register.department" %></th>
+              <th><%= t "table_register.mark" %></th>
+              <th><%= t "action" %></th>
+            </tr>
+          </thead>
+          <tbody id="js-list-registers">
+            <%= render @registers %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

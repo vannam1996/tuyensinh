@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_locale
+  before_action :room_chat
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:danger] = I18n.t "permission_denied"
@@ -15,6 +16,16 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def room_chat
+    if user_signed_in? && current_user.student?
+      @room = ChatRoom.find_by user_id: current_user.id
+      @messages = @room.messages if @room
+      return if @room
+      @room = ChatRoom.new user_id: current_user.id
+      @room.save
+    end
+  end
 
   def current_ability
     controller_name_segments = params[:controller].split("/")

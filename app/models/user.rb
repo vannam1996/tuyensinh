@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :subject_departmants, through: :subjects
   has_many :departments, through: :subject_departmants
   has_many :favorites, dependent: :destroy
+  has_one :chat_room, dependent: :destroy
+  has_many :messages, dependent: :destroy
   belongs_to :school, optional: true
 
   validates :name, presence: true
@@ -34,6 +36,7 @@ class User < ApplicationRecord
   scope :user_newest, ->{order created_at: :desc}
   scope :get_not_role, ->role{where.not role: :role}
   scope :get_teacher_by_school, ->school_id{where role: :teacher, school_id: school_id}
+  scope :by_school, ->school_id{where school_id: school_id}
   scope :get_year, ->year{where "created_at LIKE ?", "%#{year}%"}
 
   def picture_size

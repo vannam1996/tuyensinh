@@ -46,6 +46,6 @@ class LogoSchoolUploader < CarrierWave::Uploader::Base
   # end
   def default_url *_args
     ActionController::Base.helpers.asset_path "imagedefault/" +
-      [version_name, "school_danang.jpg"].compact.join("_")
+      [version_name, "school.png"].compact.join("_")
   end
 end

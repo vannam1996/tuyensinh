@@ -4,7 +4,7 @@ class Ability
   def initialize user, controller_namespace = nil
     return undefine_user if user.blank?
     case controller_namespace
-    when "Teachers"
+    when "Manager"
       permission_teacher user
     when "Admins"
       permission_admin user
@@ -27,6 +27,7 @@ class Ability
     school = user.school
     manage_school user, school
     manage_user user
+    manage_chat_rooms
   end
 
   def manage_school user, school
@@ -36,6 +37,10 @@ class Ability
     can :manage, Target, major_id: school.majors.pluck(:id)
     can %i(update read), User, user_id: school.users.pluck(:id)
     can :manage, FileRemarking, school_id: school.id
+  end
+
+  def manage_chat_rooms
+    can :manage, ChatRoom
   end
 
   def permission_user user

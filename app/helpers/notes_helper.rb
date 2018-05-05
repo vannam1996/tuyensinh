@@ -5,12 +5,13 @@ module NotesHelper
       [nil, "check-square-o"]
     when note.aspiration?
       ["themed-background-fire themed-border-fire", "pencil-square-o"]
+    when note.result_public?
+      [nil, "check-square-o"]
     end
   end
 
   def check_time_note time
-    case time
-    when time > DateTime.now
+    if time > DateTime.now
       t "next"
     else
       t "ago"

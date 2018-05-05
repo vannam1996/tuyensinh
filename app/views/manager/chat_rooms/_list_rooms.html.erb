@@ -1,0 +1,23 @@
+<div class="block full">
+  <div class="block-title clearfix">
+    <h2><i class="fa fa-tasks"></i> <strong>Danh sách</strong></h2>
+  </div>
+  <ul class="nav nav-pills nav-stacked">
+    <% @chat_rooms.each do |room| %>
+      <li class="js-link-room">
+        <%= link_to manager_chat_room_path(id: room.id), remote: true do %>
+          <div id="span-unread-room-<%= room.id %>">
+            <% if room.un_read != 0%>
+              <span class="badge pull-right backgr-red">
+                <%= room.un_read %>
+              </span>
+            <% end %>
+          </div>
+          <i class="fa fa-newspaper-o"></i>
+          <strong><%= room.user.name %></strong>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<%= javascript_include_tag "chat_room_list_manager" %>

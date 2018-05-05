@@ -1,4 +1,5 @@
 <tr role="row" class="user-<%= user.id %>">
+  <td class="text-center"><%= user.school&.name %></td>
   <td class="text-center"><%= user.people_id %></td>
   <td class="text-center"><%= user.name %></td>
   <td class="text-center"><%= l user.birthday, format: :long %></td>

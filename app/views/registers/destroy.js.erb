@@ -1,0 +1,6 @@
+<% if @success %>
+  $('#register-<%= @register.id %>').fadeOut();
+  alertify.success('<%= @success %>');
+<% elsif @error %>
+  alertify.error('<%= @error %>');
+<% end %>

@@ -1,0 +1,22 @@
+<%= hidden_field_tag :current_room_id, @chat_room.id %>
+<%= hidden_field_tag :current_user_id, current_user.id %>
+
+<div class="block full">
+  <div class="block-title">
+    <div class="block-options pull-right">
+    </div>
+    <h3 class="widget-content-light">
+      <%= link_to @chat_room.user.name, user_path(@chat_room.user) %>
+       | <%= @chat_room.user.email %>
+    </h3>
+    <div class="chat-body">
+      <div id="list-messages">
+        <%= render partial: "manager/messages/message", collection: @messages, as: :message %>
+      </div>
+    </div>
+    <div class="chat-form">
+      <%= render "manager/messages/form" %>
+    </div>
+  </div>
+</div>
+<%= javascript_include_tag "chat_channel_manager" %>

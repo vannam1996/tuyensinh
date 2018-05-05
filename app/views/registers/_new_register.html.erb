@@ -1,0 +1,44 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title"><%= t "new_register" %></h4>
+    </div>
+    <%= simple_form_for current_user.registers.new, remote: true do |f| %>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label class="control-label"><%= t "school" %></label>
+              <%= f.select :school, @schools
+                .collect{|s| [s.name, s.id]}.unshift([t("all_school"), nil]),
+                {selected: @school.present? ? @school.id : 0},
+                {class: "form-control"} %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label"><%= t "major" %></label>
+              <%= f.select :major_id, (@majors || Major.all)
+                .collect{|s| [s.name, s.id]}.unshift([t("all_major"), nil]),
+                {selected: @major.present? ? @major.id : 0},
+                {class: "form-control"} %>
+          </div>
+        </div>
+        <div class="row top-buffer">
+          <div class="col-md-6">
+            <label class="control-label"><%= t "department" %></label>
+              <%= f.select :department_id, (@departments || Department.all)
+                .collect{|s| [s.name, s.id]}.unshift([t("all_department"), nil]), {},
+                {class: "form-control"} %>
+          </div>
+          <div class="col-md-6">
+            <%= f.input :aspiration, input_html: {value: get_last_aspiration(current_user) + 1,
+             min: get_last_aspiration(current_user) + 1} %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= f.button :submit, t("new_register"), class: "btn btn-primary btn-md" %>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t "close" %></button>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -51,4 +51,8 @@ module ApplicationHelper
       register.major_id
     end
   end
+
+  def get_last_aspiration user
+    user.registers.order_by_aspiration.limit(1)&.first&.aspiration
+  end
 end

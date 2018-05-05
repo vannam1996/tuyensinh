@@ -6,11 +6,6 @@
       <%= time_ago_in_words note.start_time %>
       <%= check_time_note note.start_time %>
     </small>
-    -
-    <small>
-      <%= time_ago_in_words note.end_time %>
-      <%= check_time_note note.end_time %>
-    </small>
   </div>
 
   <div class="timeline-content">
@@ -21,8 +16,11 @@
       <% if note.aspiration? %>
         <%= t("time_allow_aspiration") %>: <%= l note.start_time, format: t("format.datetime.v_1") %> -
           <%= l note.end_time, format: t("format.datetime.v_1") %>
-      <% elsif %>
+      <% elsif note.remarking? %>
         <%= t("time_allow_remarking") %>: <%= l note.start_time, format: t("format.datetime.v_1") %> -
+          <%= l note.end_time, format: t("format.datetime.v_1") %>
+      <% elsif note.result_public? %>
+        <%= t("time_result_public") %>: <%= l note.start_time, format: t("format.datetime.v_1") %> -
           <%= l note.end_time, format: t("format.datetime.v_1") %>
       <% end %>
     </p>

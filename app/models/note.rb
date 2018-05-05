@@ -1,7 +1,7 @@
 class Note < ApplicationRecord
   acts_as_paranoid
 
-  enum style: %i(remarking aspiration)
+  enum style: %i(remarking aspiration result_public)
 
   validates :start_time, presence: true
   validates :end_time, presence: true

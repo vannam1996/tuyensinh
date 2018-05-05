@@ -18,8 +18,6 @@ Rails.application.routes.draw do
     post "signup", to: "devises/registrations#create", as: :user_registration
     get "edit", to: "devises/users#edit", as: :edit_user_registration
     delete "logout", to: "devises/sessions#destroy", as: :destroy_user_session
-    get "/suggestion_register", to: "registers#edit"
-    patch "/change_register", to: "registers#update"
   end
 
   resources :set_language, only: :index
@@ -30,7 +28,7 @@ Rails.application.routes.draw do
   resources :users, except: %i(destroy new create index) do
     get "/suggestion", to: "suggestions#index", as: :suggestions
   end
-  resources :registers,except: %i(destroy edit update)
+  resources :registers
   resources :results
   resources :majors
   resources :notes, only: :index
@@ -40,11 +38,12 @@ Rails.application.routes.draw do
   end
   resources :remarkings, only: %i(show new create)
 
-  namespace :teachers do
+  namespace :manager do
     resources :users, except: %i(new create destroy)
     resources :majors
     resources :file_remarkings, except: %i(destroy new create)
     resources :targets, only: %i(index create)
+    resources :chat_rooms
   end
 
   namespace :admins do
@@ -59,4 +58,6 @@ Rails.application.routes.draw do
     resources :style_majors
   end
   resources :favorites
+  resources :chat_rooms
+  resources :messages
 end

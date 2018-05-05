@@ -1,0 +1,4 @@
+<%= form_for Message.new, html: {class: "chat-form clearfix"}, remote: true do |f| %>
+  <%= f.text_field :content, placeholder: t(".message"), required: true, class: "chat-field" %>
+  <%= f.button t(".send"), class: "chat-submit" %>
+<% end %>

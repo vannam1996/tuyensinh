@@ -2,7 +2,7 @@ vi:
   too_short: &too_short " quá ngắn (ít nhất %{count} ký tự)"
   too_long: &too_long " quá dài (nhiều nhất %{count} ký tự)"
   app: "Hỗ trợ tuyển sinh"
-  title_main: "Hệ Thống Tuyển Sinh - Đại Học Đà Nẵng"
+  title_main: "Hệ Thống Tuyển Sinh"
   please: "Vui lòng"
   or: "Hoặc"
   email: "Email"
@@ -51,8 +51,8 @@ vi:
   back: "Trở về"
   competition_calendar: "Lịch Kỳ thi"
   change_aspiration: "Thay đổi nguyện vọng"
-  statistics_resuls: "thông kê kết quả"
-  suggestions: "Gợi ý nhành"
+  statistics_resuls: "Thống kê kết quả"
+  suggestions: "Gợi ý ngành"
   remarking: "Phúc khảo"
   individual: "Cá nhân"
   result: "Kết quả"
@@ -80,6 +80,8 @@ vi:
   note_style:
     aspiration: "Nguyện vọng"
     remarking: "Phúc khảo"
+    result_public: "Công bố điểm thi"
+  time_result_public: "Thời gian công bố điểm thi"
   competition: "Kỳ thi"
   timeline: "Lịch trình"
   start_time: "Thời gian bắt đầu"
@@ -88,9 +90,9 @@ vi:
   all_years: "Tất cả năm"
   user: "Người dùng"
   calendar: "Lịch"
-  teacher: "Giáo viên"
+  teacher: "Cán bộ"
   admin: "Admin"
-  title_page: "Đại Học Đà Nẵng"
+  title_page: "Đại Học Duy Tân"
   import: "Nhập"
   import_excel: "Nhập thí sinh từ file excel"
   users_imported: "Thí sinh đã nhập xong."
@@ -134,6 +136,11 @@ vi:
   name_unique_in_school: "Tên ngành đã tồn tại trong trường."
   major: "Ngành"
   majors: "Các ngành"
+  statistic_majors:
+    total_major: "Tổng ngành"
+    total_school: "Tổng trường"
+    hot_major: "Ngành hót"
+    top_major: "Ngành điểm cao"
   new_major: "Ngành mới"
   calendar: "Lịch"
   results: "Các kết quả"
@@ -197,7 +204,7 @@ vi:
   style: "Loại"
   notes: "Các ghi chú"
   time_allow_aspiration: "Thời gian cho phép thay đổi nguyện vọng"
-  time_allow_remarking: "Thời gian cho phép nộp đơn phscu khảo"
+  time_allow_remarking: "Thời gian cho phép nộp đơn phúc khảo"
   format:
     datetime:
       v_1: "%H:%M %d/%m/%Y"
@@ -264,8 +271,21 @@ vi:
         identification_number: "Số báo danh"
         birthday: "Ngày sinh"
         people_id: "Số CMTND"
+        address: "Địa chỉ"
+        phone: "Số điện thoại"
+        nation: "Quốc gia"
+        nationality: "Quốc tịch"
+        religion: "Tôn giáo"
+        school_id: "Trường"
       file_remarking:
         reason_reject: "Lý do từ chối"
+      major:
+        name: "Tên ngành"
+        code: "Mã ngành"
+        picture: "Hình ảnh"
+        introducing: "Mô tả"
+      register:
+        aspiration: "Thứ tự nguyện vọng"
     errors:
       messages:
         record_invalid: "Bản ghi không hợp lệ"
@@ -337,14 +357,14 @@ vi:
       first: "Đầu tiên"
       previous: "Trước"
       truncate: "..."
-  add_teacher: "Thêm giáo viên"
+  add_teacher: "Thêm Cán bộ"
   created_user: "Đã tạo người dùng."
   created_user_error: "Tạo người dùng thất bại!"
   notification:
     add_student: "Đã thêm thí sinh."
     delete_student: "Đã xóa thí sinh."
-    add_teacher: "Đã thêm giáo viên."
-    delete_teacher: "Đã xóa giáo viên."
+    add_teacher: "Đã thêm Cán bộ."
+    delete_teacher: "Đã xóa Cán bộ."
     remarking_pending: "Đã gửi phúc khảo."
     remarking_rejected: "Đã từ chối phúc khảo của bạn, vui lòng kiểm tra lại thông tin."
     remarking_approved: "Đã duyệt đơn phúc khảo của bạn, vui lòng chờ quá trình xử lí đơn."
@@ -356,7 +376,7 @@ vi:
   remarking_title_mail: "Phúc khảo"
   mail_processed: "Đơn phúc khảo của bạn đã được xử lý"
   subjects_of: "Các môn của"
-  department: "khối"
+  department: "Khối"
   all_major: "Tất cả ngành"
   edit_target: "Chỉnh số liệu"
   errors_update_target: "Có lỗi xảy ra vui lòng thử lại."
@@ -369,3 +389,31 @@ vi:
   statistic_results_by: "Thống kê kết quả theo"
   by_mark: "Theo điểm thi"
   by_depart: "Theo khối thi"
+  identification: "SBD"
+  all_users: "Thí sinh"
+  messages_manager: "Tin nhắn"
+  layouts:
+    chatbox:
+      title: "Hỗ trợ trực tuyến"
+    chat_body:
+      hello: "Xin chào, bạn cần hỗ trợ gì ?"
+  messages:
+    form:
+      message: "Nhập nội dung"
+      send: "Gửi"
+  chat_rooms: "Hỗ trợ trực tuyến"
+  manager:
+    messages:
+      form:
+        message: "Nhập nội dung"
+        send: "Gửi"
+  table_register:
+    major: "Ngành"
+    school: "Trường"
+    department: "Khối thi"
+    mark: "Điểm"
+    aspiration: "Stt"
+  edit_register: "Chỉnh sửa nguyện vọng"
+  new_register: "Thêm nguyện vọng"
+  close: "Đóng"
+  all_department: "Tất cả các khối thi"

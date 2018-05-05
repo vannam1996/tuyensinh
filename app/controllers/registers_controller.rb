@@ -1,51 +1,65 @@
 class RegistersController < BaseNotificationsController
-  before_action :current_ability
-  before_action :load_registers, only: %i(index update)
-  before_action :load_notes_remarking, :load_major_valid,
-    :load_schools, only: :index
-  before_action :get_params, only: %i(edit update)
+  before_action :load_registers, only: %i(index edit update)
+  before_action :load_notes_remarking,
+    :load_schools, only: [:index, :create]
   authorize_resource
 
   def index
-    return if @error.blank?
-    flash[:dange] = @error
-    redirect_to request.referer || root_url
+    if params[:school_id].present?
+      load_school
+      @majors = @school.majors if @school
+    end
+    if params[:major_id].present?
+      load_school
+      load_major
+      @departments = @major.departments if @major
+    end
+    if request.xhr?
+      render partial: "new_register"
+    end
+  end
+
+  def create
+    @register = current_user.registers.new register_params
+    if @register.save
+      @success = t "success"
+    else
+      @error = t "error"
+    end
   end
 
   def edit
-    render partial: "suggestions"
+
   end
 
   def update
-    Register.transaction do
-      @registers.each do |register|
-        next if @registers_params[register.aspiration][:major_id] == Settings.default_value
-        get_department_best @registers_params[register.aspiration][:major_id]
-        register.update_attributes! @registers_params[register.aspiration]
-          .merge! department_id: @department_best, mark: @mark_best
-      end
-      current_user.update_attributes! is_changed_register: true
+    registers = []
+    @registers.each.with_index do |register, index|
+      register.aspiration = params[:aspiration][index]
+      register.department_id = params[:department][index]
+      registers << register
     end
-    render json: {success: true}
-  rescue ActiveRecord::RecordInvalid => exception
-    render json: {success: false, message: exception.message}
-  rescue ActiveRecord::RecordNotUnique => exception
-    render json: {success: false, message: exception.message}
+    Register.import registers, on_duplicate_key_update: [:aspiration, :department_id]
+    redirect_to registers_path
+  end
+
+  def destroy
+    load_register
+    if @register && @register.destroy
+      @success = t "deleted_success"
+    else
+      @error = t "deleted_failure"
+    end
   end
 
   private
 
-  def get_params
-    @registers_params = {}
-    3.times do |n|
-      params["aspiration_#{n + 1}"][:aspiration] = params["aspiration_#{n + 1}"][:aspiration].to_i if params["aspiration_#{n + 1}"]
-      params["aspiration_#{n + 1}"][:major_id] = params["aspiration_#{n + 1}"][:major_id].to_i if params["aspiration_#{n + 1}"]
-      @registers_params["aspiration_#{n + 1}"] = params.required("aspiration_#{n + 1}").permit!
-    end
+  def register_params
+    params.require(:register).permit :major_id, :department_id, :aspiration
   end
 
   def load_registers
-    @registers = current_user.registers
+    @registers = current_user.registers.order(aspiration: :asc)
   end
 
   def load_notes_remarking
@@ -58,15 +72,15 @@ class RegistersController < BaseNotificationsController
     @schools = School.all
   end
 
-  def load_major_valid
-    department_ids = current_user.find_user_departments
-    major_ids = MajorDepartment.get_by_depart(department_ids).pluck :major_id
-    @majors = Major.get_by major_ids
+  def load_school
+    @school = School.find_by id: params[:school_id]
   end
 
-  def get_department_best major_id
-    get_department = RegistersService.new current_user, major_id
-    @department_best = get_department.get_best_depart
-    @mark_best = get_department.get_mark_from_depart
+  def load_major
+    @major = Major.find_by id: params[:major_id]
+  end
+
+  def load_register
+    @register = Register.find_by id: params[:id]
   end
 end

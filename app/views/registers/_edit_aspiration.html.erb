@@ -1,0 +1,47 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title"><%= t "new_register" %></h4>
+    </div>
+    <%= form_tag register_path, method: :patch do %>
+      <div class="modal-body">
+        <div class="row">
+          <div class="table-responsive col-md-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th><%= t "table_register.aspiration" %></th>
+                  <th><%= t "table_register.major" %></th>
+                  <th><%= t "table_register.school" %></th>
+                  <th><%= t "table_register.department" %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @registers.each do |register| %>
+                  <tr>
+                    <td>
+                      <%= select_tag "aspiration[]",options_for_select(
+                      @registers.first.aspiration.upto(@registers.last.aspiration)
+                      .map{|i| [i, i]}, register.aspiration), class: "form-control" %>
+                    </td>
+                    <td><%= register.major.name %></td>
+                    <td><%= register.major.school.name %></td>
+                    <td>
+                      <%= select_tag "department[]",options_for_select(
+                      register.major.departments.map{|obj| [obj.name, obj.id]}, register.department_id), class: "form-control" %>
+                    </td>
+                  </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag t("confirm"), class: "btn btn-success",
+          title: t("confirm") %>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t "close" %></button>
+      </div>
+    <% end %>
+  </div>
+</div>
