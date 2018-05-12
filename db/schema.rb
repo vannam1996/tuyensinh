@@ -255,7 +255,6 @@ ActiveRecord::Schema.define(version: 20180503140419) do
     t.string "religion"
     t.date "deleted_at"
     t.bigint "school_id"
-    t.boolean "is_changed_register", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encrypted_password", default: "", null: false

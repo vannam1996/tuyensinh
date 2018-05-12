@@ -12,6 +12,7 @@ class Manager::TargetsController < Manager::TeachersController
       case params[:role]
       when Settings.target_columns.benchmark
         @target.update_attribute :benchmark, params[:value]
+        submit_results
       when Settings.target_columns.amount
         @target.update_attribute :amount, params[:value]
       when Settings.target_columns.job
@@ -36,5 +37,20 @@ class Manager::TargetsController < Manager::TeachersController
     @major = Major.find_by id: params[:major_id]
     return if @major
     @flash = t "not_found_major"
+  end
+
+  def submit_results
+    registers = @target.major.registers
+    registers.each do |register|
+      mark = count_mark register
+      status = mark >= @target.benchmark
+      register.update_attributes status: status,
+        mark: count_mark(register)
+    end
+  end
+
+  def count_mark register
+    subject_ids = register.department.subjects.ids
+    mark = Result.get_by_subject(subject_ids).get_by_user(register.user_id).sum(&:mark);
   end
 end

@@ -2,7 +2,7 @@
   $('#js-list-registers').append('<%= j render partial: "register", locals: {register: @register} %>');
   alertify.success('<%= @success %>');
   $('#modal-new-register').modal('hide');
-  $('#modal-new-register').html('<%= j render "new_register" %>')
+  $('#modal-new-register').html('<%= j render partial: "new_register", locals: {register: @register} %>')
 <% elsif @error %>
   alertify.error('<%= @error %>');
 <% end %>

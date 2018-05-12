@@ -44,7 +44,7 @@
 </div>
 <div class="modal fade" id="favorite-majors" role="dialog" tabindex="-1" aria-hidden="true"></div>
 <div id="modal-new-register" class="modal fade" role="dialog">
-  <%= render "new_register" %>
+  <%= render partial: "new_register", locals: {register: current_user.registers.new} %>
 </div>
 <div id="modal-edit-aspiration" class="modal fade" role="dialog">
 

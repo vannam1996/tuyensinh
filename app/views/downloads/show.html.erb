@@ -20,10 +20,10 @@
     <p>Sinh ngày: <%= l @file_remarking.user_birthday %>.</p>
     <p>Nơi sinh: <%= @file_remarking.user_nationality %>.</p>
     <p>Trong kì thi tuyển sinh đại học năm <%= DateTime.now.year %> - <%= DateTime.now.year + 1 %>,
-      tôi đăng kí dự thi tại hội đồng tuyển sinh  của <%= @file_remarking.school_name %>.</p>
+      tôi đăng kí dự thi tại hội đồng tuyển sinh của <%= @file_remarking.school_name %>.</p>
     <ul>
       <li>Số báo danh: <strong><%= @file_remarking.user_identification_number %></strong>.</li>
-      <li>Chuyên ngành dự thi: <%= current_user.registers.aspiration_1.first&.major&.name %></li>
+      <li>Chuyên ngành dự thi: <%= current_user.registers.order_by_aspiration.first&.major&.name %></li>
       <li>Môn đề nghị chấm lại:
         <ol>
           <%= render partial: "subject_remarking", collection: @file_remarking.remarkings, as: :remarking %>

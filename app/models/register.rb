@@ -12,7 +12,8 @@ class Register < ApplicationRecord
   delegate :name, :id, to: :department, prefix: true, allow_nil: true
 
   scope :get_year, ->year{where "created_at LIKE ?", "%#{year}%"}
-  scope :order_by_aspiration, ->{order aspiration: :desc}
+  scope :order_by_aspiration, ->{order aspiration: :asc}
+  scope :order_by_aspiration_desc, ->{order aspiration: :desc}
 
   class << self
     def hot_school datetime

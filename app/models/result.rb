@@ -15,6 +15,7 @@ class Result < ApplicationRecord
   scope :order_by_subject, ->{order subject_id: :asc}
   scope :get_by_deparment, ->department_ids{where department_id: department_ids}
   scope :get_by_subject, ->subject_ids{where subject_id: subject_ids}
+  scope :get_by_user, ->user_id{where user_id: user_id}
 
   delegate :id, to: :user, prefix: true, allow_nil: true
   delegate :name, to: :subject, prefix: true, allow_nil: true

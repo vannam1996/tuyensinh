@@ -1,4 +1,4 @@
-<%= simple_form_for @user, method: :patch, remote: true do |f| %>
+<%= simple_form_for @user, method: :patch do |f| %>
   <div class="col-sm-2 col-md-2 col-lg-2">
     <div class="row">
       <center>
@@ -15,7 +15,7 @@
 
     <div class="row">
       <%= f.file_field :avatar, class: "btn btn-success btn-md w-180 m-t-20",
-        accept: "image/jpeg,image/gif,image/png" %>
+        accept: "image/jpeg, image/gif, image/png" %>
     </div>
   </div>
   <div class="col-sm-10 col-md-10 col-lg-10" >

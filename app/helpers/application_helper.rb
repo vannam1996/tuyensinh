@@ -53,6 +53,6 @@ module ApplicationHelper
   end
 
   def get_last_aspiration user
-    user.registers.order_by_aspiration.limit(1)&.first&.aspiration
+    user.registers.order_by_aspiration.last&.aspiration
   end
 end

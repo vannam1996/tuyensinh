@@ -1,4 +1,5 @@
 class UsersController < BaseNotificationsController
+  skip_before_action :verify_authenticity_token
   before_action :current_ability
   before_action :load_user, only: %i(show edit update)
   before_action :load_aspiration, :load_results, only: :show
@@ -10,15 +11,14 @@ class UsersController < BaseNotificationsController
   def edit; end
 
   def update
-    respond_to do |format|
-      if @user.update_attributes user_params
-        load_aspiration
-        load_results
-        format.js{@success = t "update_success"}
-      else
-        format.js{@errors = t "update_failure"}
-      end
+    if @user.update_attributes user_params
+      load_aspiration
+      load_results
+      flash[:success] = t "update_success"
+    else
+      flash[:danger] = t "update_failure"
     end
+    redirect_to @user
   end
 
   private
